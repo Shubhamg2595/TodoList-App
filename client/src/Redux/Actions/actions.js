@@ -45,24 +45,50 @@ export const addTodoError = (error) => (
 );
 
 
+export const setActiveTodoItem = (todoId) => ({
+    type: Constants.SET_ACTIVE_TODO,
+    payload: todoId,
+})
 
-export const editTodoById = (postId) => (
+
+export const editTodoById = (todoId) => (
     {
-        type: Constants.EDIT_TODO_POST,
-        payload: postId,
+        type: Constants.EDIT_TODO,
+        payload: todoId,
     }
 );
 
 export const editTodoByIdSuccess = (successres) => (
     {
-        type: Constants.EDIT_TODO_POST_SUCCESS,
+        type: Constants.EDIT_TODO_SUCCESS,
         payload: successres
     }
 );
 
 export const editTodoByIdError = (error) => (
     {
-        type: Constants.EDIT_TODO_POST_ERROR,
+        type: Constants.EDIT_TODO_ERROR,
+        payload: error,
+    }
+);
+
+export const deleteTodoById = (todoId) => (
+    {
+        type: Constants.DELETE_TODO,
+        payload: todoId,
+    }
+);
+
+export const deleteTodoByIdSuccess = (successres) => (
+    {
+        type: Constants.DELETE_TODO_SUCCESS,
+        payload: successres
+    }
+);
+
+export const deleteTodoByIdError = (error) => (
+    {
+        type: Constants.DELETE_TODO_ERROR,
         payload: error,
     }
 );

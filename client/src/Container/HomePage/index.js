@@ -8,13 +8,13 @@ import CreateTodo from "../../components/create-todo";
 import EditTodo from "../../components/edit-todo";
 import TodosList from "../../components/todos-list";
 
-import { fetchTodos, addTodo } from '../../Redux/Actions/actions'
+import { fetchTodos, addTodo, editTodoById, deleteTodoById } from '../../Redux/Actions/actions'
 
 import { connect } from 'react-redux';
 
 
 function Home(props) {
-    const { getAllTodos, todoList, addNewTodoItem } = props;
+    const { getAllTodos, todoList, addNewTodoItem, updateTodoItem, updateActiveTodoItem, removeTodoItem } = props;
     return (
         <Router>
             <div className="container">
@@ -42,6 +42,8 @@ function Home(props) {
                         <TodosList
                             getAllTodos={getAllTodos}
                             todoList={todoList}
+                            updateActiveTodoItem={updateActiveTodoItem}
+                            removeTodoItem={removeTodoItem}
                         />
                     )}
                 />
@@ -55,7 +57,15 @@ function Home(props) {
                     )}
                 />
 
-                <Route path="/edit/:id" component={EditTodo} />
+                <Route path="/edit/:id"
+                    render={props => (
+                        <EditTodo
+                            {...props}
+                            todoList={todoList}
+                            updateTodoItem={updateTodoItem}
+                        />
+                    )}
+                />
             </div>
         </Router>
     );
@@ -68,7 +78,8 @@ function mapStateToProps(state) {
     return {
         todos: state.todo.todos,
         loading: state.todo.loading,
-        todoList: state.todo.todos
+        todoList: state.todo.todos,
+        activeTodoItem: state.todo.activeTodoId,
     }
 }
 
@@ -76,6 +87,8 @@ function mapDispatchToProps(dispatch) {
     return {
         getAllTodos: () => dispatch(fetchTodos()),
         addNewTodoItem: (todoItem) => dispatch(addTodo(todoItem)),
+        updateTodoItem: (todoItem) => dispatch(editTodoById(todoItem)),
+        removeTodoItem: (todoId) => dispatch(deleteTodoById(todoId)),
     }
 }
 

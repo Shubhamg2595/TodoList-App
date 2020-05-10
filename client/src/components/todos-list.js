@@ -9,12 +9,14 @@ const Todo = props => (
         <td className={props.todo.todo_completed ? 'completed' : ''}>{props.todo.todo_priority}</td>
         <td>
             <Link to={"/edit/" + props.todo._id}>Edit</Link>
+            {" / "}
+            <Link to={"/"} onClick={() => props.removeTodoItem(props.todo._id)}>Delete</Link>
         </td>
     </tr>
 )
 
 export default function TodosList(props) {
-    const { getAllTodos, todoList } = props;
+    const { getAllTodos, todoList, removeTodoItem } = props;
     const todos = todoList && Object.values(todoList);
 
 
@@ -25,7 +27,11 @@ export default function TodosList(props) {
     function displayTodoList() {
         return todos.map(
             function (currentTodo, i) {
-                return <Todo todo={currentTodo} key={i} />;
+                return <Todo
+                    todo={currentTodo}
+                    key={i}
+                    removeTodoItem={removeTodoItem}
+                />;
             });
     }
 
@@ -43,7 +49,7 @@ export default function TodosList(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {todos && todos.length > 0 ? displayTodoList() : null}
+                    {todos && todos.length > 0 ? displayTodoList() : <h4>"No todo Items Found"</h4>}
                 </tbody>
             </table>
         </div>
