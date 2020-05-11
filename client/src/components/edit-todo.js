@@ -54,8 +54,6 @@ export default function EditTodo(props) {
             todo_completed: todo_completed
         };
         updateTodoItem(updatedTodoItem);
-        // axios.post('http://localhost:4000/todos/update/' + props.match.params.id, obj)
-        //     .then(res => console.log(res.data));
 
         props.history.push('/');
     }
