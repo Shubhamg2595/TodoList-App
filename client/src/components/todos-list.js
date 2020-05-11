@@ -51,6 +51,14 @@ export default function TodosList(props) {
                 <tbody>
                     {todos && todos.length > 0 ? displayTodoList() : <h4>"No todo Items Found"</h4>}
                 </tbody>
+                <div style={{ marginTop:"250px" }}>
+                    <tbody >
+                        <p><b>TotalTodos:</b> {todos.length} </p>
+                        <p><b>Completed Todos:</b> {todos.filter(item => item.todo_completed).length} </p> 
+                        <p><b> ActiveTodos:</b> {todos.filter(item => !item.todo_completed).length}  </p>
+
+                    </tbody>
+                </div>
             </table>
         </div>
     )
